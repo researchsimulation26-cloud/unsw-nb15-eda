@@ -329,5 +329,5 @@ def download_csv_button(df, filename, label="Download CSV"):
         data=csv,
         file_name=filename,
         mime="text/csv",
-        use_container_width=True,
+        width="stretch",
     )

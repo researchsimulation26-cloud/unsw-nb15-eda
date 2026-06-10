@@ -52,7 +52,7 @@ st.markdown(
     "each feature differ significantly between Normal and Attack groups."
 )
 
-if st.button("Run Mann-Whitney U Tests", type="primary", use_container_width=True):
+if st.button("Run Mann-Whitney U Tests", type="primary", width="stretch"):
     with st.spinner("Running statistical tests..."):
         results = []
         normal = df[df["Label"] == 0]
@@ -87,7 +87,7 @@ if st.button("Run Mann-Whitney U Tests", type="primary", use_container_width=Tru
         mw_df["abs_r"] = mw_df["Effect Size (r)"].str.replace(",", ".").astype(float).abs()
         mw_df = mw_df.sort_values("abs_r", ascending=False).drop(columns=["abs_r"])
 
-        st.dataframe(mw_df, use_container_width=True, height=500)
+        st.dataframe(mw_df, width="stretch", height=500)
         download_csv_button(mw_df, "mann_whitney_results.csv", "Download Test Results")
 
         sig_count = (mw_df["Significant"] == "✅").sum()
@@ -109,7 +109,7 @@ st.markdown(
     "for predicting whether traffic is normal or attack."
 )
 
-if st.button("Compute Random Forest Importance", type="primary", use_container_width=True):
+if st.button("Compute Random Forest Importance", type="primary", width="stretch"):
     with st.spinner("Training Random Forest on 50k sample..."):
         sample_rf = df.sample(n=min(50000, len(df)))
         rf_features = [c for c in num_cols if c in sample_rf.columns]
@@ -132,7 +132,7 @@ if st.button("Compute Random Forest Importance", type="primary", use_container_w
             title="Top 20 Feature Importances (Random Forest)",
             color="#00d4ff", sort_values=False, height=500,
         )
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width="stretch")
 
         st.caption(
             "Random Forest importance reflects how much each feature contributes to "
@@ -154,7 +154,7 @@ st.markdown(
     "capturing non-linear relationships that correlation may miss."
 )
 
-if st.button("Compute Mutual Information", type="primary", use_container_width=True):
+if st.button("Compute Mutual Information", type="primary", width="stretch"):
     with st.spinner("Computing mutual information..."):
         sample_mi = df.sample(n=min(100000, len(df)))
         mi_features = [c for c in num_cols if c in sample_mi.columns]
@@ -171,7 +171,7 @@ if st.button("Compute Mutual Information", type="primary", use_container_width=T
             title="Top 20 Features by Mutual Information with Label",
             color="#ff6b35", sort_values=False, height=500,
         )
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width="stretch")
 
         st.caption(
             "Mutual Information captures both linear and non-linear dependencies. "
@@ -193,7 +193,7 @@ st.markdown(
     "identifies features with the most extreme values (beyond 3 standard deviations)."
 )
 
-if st.button("Run Outlier Analysis", type="primary", use_container_width=True):
+if st.button("Run Outlier Analysis", type="primary", width="stretch"):
     with st.spinner("Analyzing outliers..."):
         var_cols = df[num_cols].var().sort_values(ascending=False).head(10).index
         outlier_results = []
@@ -217,7 +217,7 @@ if st.button("Run Outlier Analysis", type="primary", use_container_width=True):
             )
 
         outlier_df = pd.DataFrame(outlier_results)
-        st.dataframe(outlier_df, use_container_width=True)
+        st.dataframe(outlier_df, width="stretch")
         download_csv_button(outlier_df, "outlier_analysis.csv", "Download Outlier Analysis")
 
         st.caption(

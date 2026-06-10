@@ -103,7 +103,7 @@ with col1:
         colors=["#3fb950", "#f85149"],
     )
     fig.update_layout(height=350)
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
     st.caption(
         "The dataset contains a mix of normal and attack traffic. "
         f"Attacks comprise {attack_ratio:.1f}% of all records, providing a "

@@ -56,7 +56,7 @@ with col1:
         title=f"Top {top_n} Protocols by Count",
         color="#00d4ff", sort_values=True, height=400,
     )
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
 with col2:
     attacks = df[df["Label"] == 1]
@@ -72,7 +72,7 @@ with col2:
         title="Protocol × Attack Category (Attacks Only)",
         height=400,
     )
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
 st.caption(
     f"The top protocols reveal the dominant communication types in the dataset. "
@@ -94,7 +94,7 @@ with col1:
         title=f"Top {top_n} Services by Count",
         color="#ff6b35", sort_values=True, height=400,
     )
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
 with col2:
     attacks = df[df["Label"] == 1]
@@ -110,7 +110,7 @@ with col2:
         title="Service × Attack Category (Attacks Only)",
         height=400,
     )
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
 st.caption(
     "Services like DNS, HTTP, and FTP are common attack vectors. The stacked chart "
@@ -146,7 +146,7 @@ with col1:
         title=f"Top {top_n} Connection States",
         color="#79c0ff", sort_values=True, height=400,
     )
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
 with col2:
     attacks = df[df["Label"] == 1]
@@ -162,7 +162,7 @@ with col2:
         title="State × Attack Category (Attacks Only)",
         height=400,
     )
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
 st.caption(
     "Connection states like RST (reset) and INT (interrupted) are more prevalent in "
@@ -188,7 +188,7 @@ if len(df[df["Label"] == 1]) > 0:
         colorscale="Viridis",
         height=500,
     )
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
     st.caption(
         "This heatmap shows the average source bytes per flow for each protocol and "
         "attack category combination. Brighter cells indicate higher byte volumes. "
@@ -207,7 +207,7 @@ if len(df[df["Label"] == 1]) > 0:
         colorscale="Viridis",
         height=500,
     )
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
     st.caption(
         "Destination byte heatmap complements the source view. Asymmetry between "
         "source and destination bytes can reveal attack characteristics — e.g., "
@@ -238,7 +238,7 @@ for i in range(0, 4, 2):
             height=350,
         )
         with cols[j]:
-            st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig, width="stretch")
 
 if len(df) > 200000:
     st.info("📌 Charts based on 200k sample for performance")

@@ -62,7 +62,7 @@ with col1:
         color="#ff6b35", sort_values=True, height=400,
     )
     fig.update_traces(marker_color=[ATTACK_COLORS.get(c, "#ff6b35") for c in cat_counts["Attack Category"]])
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
 with col2:
     cat_colors = [ATTACK_COLORS.get(c, "#ff6b35") for c in cat_counts["Attack Category"]]
@@ -73,7 +73,7 @@ with col2:
         colors=cat_colors,
     )
     fig.update_layout(height=400)
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
 st.caption(
     "Generic and Exploits are typically the most prevalent categories in UNSW-NB15, "
@@ -84,7 +84,7 @@ st.caption(
 st.markdown("---")
 
 st.subheader("📋 Attack Summary Table")
-st.dataframe(cat_counts, use_container_width=True)
+st.dataframe(cat_counts, width="stretch")
 download_csv_button(cat_counts, "attack_distribution.csv", "Download Attack Distribution")
 
 st.markdown("---")
@@ -148,7 +148,7 @@ fig.update_layout(
     font=dict(color="#e6edf3"),
     legend=dict(font=dict(color="#e6edf3")),
 )
-st.plotly_chart(fig, use_container_width=True)
+st.plotly_chart(fig, width="stretch")
 st.caption(
     f"The radar chart compares {selected_cat}'s feature profile against all other attack categories. "
     "Features are normalized to [0,1] for comparison. Distinct shapes indicate different attack "
@@ -168,7 +168,7 @@ if "Stime" in df.columns:
     hourly = df_time.groupby("hour").size().reset_index(name="count")
     fig = line_chart(hourly, x="hour", y="count", title="Attacks by Hour of Day", color="#f85149")
     fig.update_layout(xaxis=dict(dtick=2))
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
     st.caption(
         "Temporal clustering of attacks may indicate coordinated attack campaigns or "
         "automated scanning activity. Peaks at specific hours could reveal attacker "
@@ -182,7 +182,7 @@ if "Stime" in df.columns:
         color_map=ATTACK_COLORS,
     )
     fig.update_layout(xaxis=dict(dtick=2))
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
     st.caption(
         "Different attack categories exhibit distinct temporal signatures. For example, "
         "automated scans (Reconnaissance) may show uniform distribution while targeted "
@@ -217,7 +217,7 @@ for i in range(0, len(violin_features), ncols):
             height=400,
         )
         with cols[j]:
-            st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig, width="stretch")
 
 st.caption(
     "Violin plots reveal distributional differences between normal and attack traffic. "

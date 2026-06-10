@@ -31,7 +31,7 @@ total_rows = len(df)
 total_cols = df.shape[1]
 memory_mb = df.memory_usage(deep=True).sum() / 1024**2
 numeric_count = df.select_dtypes(include=[np.number]).shape[1]
-categorical_count = df.select_dtypes(include=["object", "category"]).shape[1]
+categorical_count = df.select_dtypes(include=["str", "category"]).shape[1]
 
 k1, k2, k3, k4, k5 = st.columns(5)
 k1.metric("Total Rows", f"{total_rows:,}")
@@ -45,7 +45,7 @@ st.subheader("📋 Basic Statistics")
 with st.expander("View Descriptive Statistics", expanded=False):
     desc_df = df.describe(include="all").T
     desc_df = desc_df.reset_index().rename(columns={"index": "Feature"})
-    st.dataframe(desc_df, use_container_width=True, height=400)
+    st.dataframe(desc_df, width="stretch", height=400)
     download_csv_button(desc_df, "descriptive_statistics.csv", "Download Statistics")
 
 st.markdown("---")
@@ -59,7 +59,7 @@ fig = horizontal_bar(
     title="Feature Data Type Distribution",
     color="#00d4ff", sort_values=True, height=300,
 )
-st.plotly_chart(fig, use_container_width=True)
+st.plotly_chart(fig, width="stretch")
 st.caption(
     "Numeric features dominate the dataset, reflecting the quantitative nature of "
     "network traffic measurements (byte counts, packet counts, timing, etc.). "
@@ -79,7 +79,7 @@ col_info = pd.DataFrame(
     }
 )
 col_info.index = range(1, len(col_info) + 1)
-st.dataframe(col_info, use_container_width=True, height=500)
+st.dataframe(col_info, width="stretch", height=500)
 download_csv_button(col_info, "column_info.csv", "Download Column Info")
 
 st.markdown("---")
@@ -98,7 +98,7 @@ if len(null_cols) > 0:
         title="Columns with Missing Values",
         color="#ff6b35", sort_values=True, height=300,
     )
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
     st.info(
         "**Why are these columns missing data?**\n\n"
@@ -127,7 +127,7 @@ for c in df.columns:
         }
     )
 health_df = pd.DataFrame(health_data)
-st.dataframe(health_df, use_container_width=True, height=300)
+st.dataframe(health_df, width="stretch", height=300)
 download_csv_button(health_df, "column_health.csv", "Download Health Check")
 
 st.markdown("---")
@@ -147,7 +147,7 @@ attack_cat_filter = st.multiselect(
 if attack_cat_filter:
     sample_df = sample_df[sample_df["attack_cat"].isin(attack_cat_filter)]
 
-st.dataframe(sample_df, use_container_width=True, height=400)
+st.dataframe(sample_df, width="stretch", height=400)
 download_csv_button(sample_df, "sample_data.csv", "Download Sample")
 
 st.markdown("---")

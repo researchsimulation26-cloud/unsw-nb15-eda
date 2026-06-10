@@ -76,7 +76,7 @@ fig = stacked_bar(
     barmode="group",
 )
 with col1:
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
     st.caption(
         f"Training set has {train_attack_pct:.1f}% attacks vs "
         f"{test_attack_pct:.1f}% in testing. "
@@ -91,7 +91,7 @@ with col2:
             "Attack %": [train_attack_pct, test_attack_pct],
         }
     )
-    st.dataframe(label_pct, use_container_width=True)
+    st.dataframe(label_pct, width="stretch")
 
 st.markdown("---")
 
@@ -120,7 +120,7 @@ fig = stacked_bar(
     height=450,
     barmode="group",
 )
-st.plotly_chart(fig, use_container_width=True)
+st.plotly_chart(fig, width="stretch")
 st.caption(
     "Attack category proportions should be similar between splits. Large discrepancies "
     "may indicate sampling bias where certain attack types are over/under-represented "
@@ -160,7 +160,7 @@ fig = histogram(
     barmode="overlay",
     height=400,
 )
-st.plotly_chart(fig, use_container_width=True)
+st.plotly_chart(fig, width="stretch")
 
 train_vals = train[selected_feat].dropna().values
 test_vals = test[selected_feat].dropna().values
@@ -187,7 +187,7 @@ balance["Train %"] = (balance["Training Count"] / train_rows * 100).round(2)
 balance["Test %"] = (balance["Testing Count"] / test_rows * 100).round(2)
 balance["Difference %"] = (balance["Train %"] - balance["Test %"]).round(2)
 
-st.dataframe(balance, use_container_width=True)
+st.dataframe(balance, width="stretch")
 download_csv_button(balance, "class_balance_comparison.csv", "Download Balance Comparison")
 
 st.caption(
@@ -242,7 +242,7 @@ with st.expander("📋 Full Coverage Table"):
             coverage["In Train"] = coverage["Train Count"] > 0
             coverage["In Test"] = coverage["Test Count"] > 0
             st.markdown(f"**{col} Coverage**")
-            st.dataframe(coverage, use_container_width=True)
+            st.dataframe(coverage, width="stretch")
 
 st.markdown("---")
 st.markdown(f"<div style='text-align:center;color:#8b949e;font-size:0.8rem;'>{FOOTER}</div>", unsafe_allow_html=True)

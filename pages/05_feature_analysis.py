@@ -67,11 +67,11 @@ with col1:
         log_x=use_log,
         height=400,
     )
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
 with col2:
     stats = sample_feat.groupby("label_name")[selected_feat].describe()
-    st.dataframe(stats, use_container_width=True)
+    st.dataframe(stats, width="stretch")
 
 if len(df) > 200000:
     st.info("📌 Chart based on 200k sample for performance")
@@ -106,7 +106,7 @@ if len(corr_features) >= 2:
         zmin=-1,
         zmax=1,
     )
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
     st.subheader("Top 10 Highly Correlated Pairs")
     corr_pairs = (
@@ -118,7 +118,7 @@ if len(corr_features) >= 2:
     corr_pairs["Abs Correlation"] = corr_pairs["Correlation"].abs()
     corr_pairs = corr_pairs.sort_values("Abs Correlation", ascending=False).head(10)
     corr_pairs = corr_pairs[corr_pairs["Feature 1"] != corr_pairs["Feature 2"]]
-    st.dataframe(corr_pairs, use_container_width=True)
+    st.dataframe(corr_pairs, width="stretch")
     download_csv_button(corr_pairs, "top_correlated_pairs.csv", "Download Correlated Pairs")
 
     st.caption(
@@ -161,7 +161,7 @@ fig.update_traces(
         for v in label_corr.head(20)["Correlation with Label"]
     ]
 )
-st.plotly_chart(fig, use_container_width=True)
+st.plotly_chart(fig, width="stretch")
 st.caption(
     "Features with high absolute correlation to the Label are strong univariate predictors. "
     "Blue bars indicate positive correlation (higher values → higher attack probability), "
@@ -189,7 +189,7 @@ if has_tcp:
                     height=400,
                 )
                 with cols[j]:
-                    st.plotly_chart(fig, use_container_width=True)
+                    st.plotly_chart(fig, width="stretch")
 
     st.caption(
         "TCP features like window size (`swin`, `dwin`) and RTT (`tcprtt`, `synack`, `ackdat`) "
@@ -216,7 +216,7 @@ if has_ct:
         color_map=None,
         barmode="group",
     )
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
     st.caption(
         "Connection tracking features (`ct_srv_src`, `ct_dst_ltm`, etc.) capture "
@@ -226,7 +226,7 @@ if has_ct:
     )
 
     ct_table = ct_means.round(2)
-    st.dataframe(ct_table, use_container_width=True)
+    st.dataframe(ct_table, width="stretch")
     download_csv_button(ct_table, "connection_tracking_features.csv", "Download CT Features")
 else:
     st.info("ℹ️ Connection tracking features are available in all datasets.")

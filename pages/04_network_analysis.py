@@ -95,7 +95,7 @@ if has_ip:
         title="Top 15 Most Active Source IPs",
         height=450,
     )
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
     st.caption(
         "The most active source IPs are shown, colored by their dominant attack type. "
         "IPs with high activity and a single dominant attack category may represent "
@@ -111,7 +111,7 @@ if has_ip:
         title="Top 15 Most Targeted Destination IPs",
         color="#f85149", sort_values=True, height=450,
     )
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
     st.caption(
         "Destination IPs receiving the most traffic may represent critical servers or "
         "services under attack. Concentrated targeting of specific IPs suggests focused "
@@ -136,7 +136,7 @@ if has_port:
             color="#00d4ff", sort_values=True, height=450,
         )
         fig = _add_port_annotations(fig, src_ports["Port"].tolist())
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width="stretch")
 
     with col2:
         dst_ports = df["dsport_n"].value_counts().head(20).reset_index()
@@ -147,7 +147,7 @@ if has_port:
             color="#ff6b35", sort_values=True, height=450,
         )
         fig = _add_port_annotations(fig, dst_ports["Port"].tolist())
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width="stretch")
 
     st.caption(
         "Well-known ports: 80 (HTTP), 443 (HTTPS), 22 (SSH), 21 (FTP), 53 (DNS), "
@@ -171,7 +171,7 @@ if has_port:
             height=400,
         )
         fig.update_xaxes(type="category")
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width="stretch")
         st.caption(
             "Certain ports are more frequently targeted by specific attack types. "
             "For example, port 80 (HTTP) is a common vector for web exploits, "
@@ -201,7 +201,7 @@ with col1:
         title="Source TTL Distribution",
         color="#79c0ff", sort_values=True, height=400,
     )
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
 with col2:
     dttls = df["dttl"].value_counts().head(15).reset_index()
@@ -211,7 +211,7 @@ with col2:
         title="Destination TTL Distribution",
         color="#a5d6ff", sort_values=True, height=400,
     )
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
 attacks_ttl = df[df["Label"] == 1]
 if len(attacks_ttl) > 0:
@@ -227,7 +227,7 @@ if len(attacks_ttl) > 0:
         title="Source TTL × Attack Category",
         height=400,
     )
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
     st.caption(
         "TTL values associated with specific attack categories can reveal attacker infrastructure. "
         "For instance, a concentration of TTL=128 (Windows) among certain attack types may indicate "
@@ -250,7 +250,7 @@ with col1:
         log_y=True,
         height=500,
     )
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
     st.caption(
         "DoS attacks typically have very short durations due to their flood-based nature — "
         "they send many packets quickly without establishing connections. Exploits and "
@@ -267,7 +267,7 @@ with col2:
         color="#00d4ff", sort_values=True, height=450,
     )
     fig.update_traces(marker_color=cat_colors)
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
     st.caption(
         "Median duration varies significantly across attack categories. Reconnaissance "
         "and scanning activities are often brief, while exploits and backdoors may "
